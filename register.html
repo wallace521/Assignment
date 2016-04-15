@@ -1,0 +1,105 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+  <meta charset="UTF-8">	
+	<title>Drug Abuse</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+
+		
+		
+		$("#registerbtn").click(function() {
+		    var URLs="register.php";
+			//var valid='Success';
+		    var userid=$.trim($("#user").val());
+			var pwdid=$.trim($("#pw").val());
+			var repwdid=$.trim($("#repw").val());		
+			var email=$.trim($("#email").val());			
+            var myData = "userid="+ userid + "&password=" + pwdid + "&email=" + email;  
+            
+           if(userid.length==0||pwdid.length==0||repwdid.length==0||email.length==0){
+            	alert('Please fill all the fields!');           	
+            }
+           else if(repwdid!=pwdid){
+				alert('Password is not matched!');
+			}
+			else if (!validateEmail(email)){
+				alert('Invalid Email Address');
+			}
+           
+			else {
+			$.ajax({
+                url: URLs,
+                data: myData,
+                type:"POST",
+                dataType:'text',
+
+                success: function(msg){			
+					if (msg =="yes"){
+						window.location="login.html";
+					}	
+					else {
+						alert(msg);
+					}
+                },
+                 error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                 }
+            });
+			
+			}
+		});
+		function validateEmail(Email) {
+			var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			if (filter.test(Email)) {
+		return true;
+			}
+		else {
+			return false;
+		}
+		};
+			
+
+			});
+
+			
+			
+   
+
+
+       
+        </script>
+</head> 
+
+<body> 
+<div data-role="page" id="home" data-theme="c">
+	<div data-role="content">
+		<h1>Register</h1>
+		<a href="#" class="ui-btn" data-rel="back">Go Back</a>
+		<div data-role="fieldcontain">
+			<label for="user">Username</label>
+			<input type="text" id="user" name="user">
+			<label for="pw">Password</label>
+			<input type="password" id="pw" name="pw">
+			<label for="repw">Re-Password</label>
+			<input type="password" id="repw" name="repw">
+			<label for="email">Email</label>
+			<input type="text" id="email" name="email">
+		</div>
+		<input type="button" id="registerbtn" value="Register">
+	</div>
+</div>
+	
+	
+	
+</div><!-- /page -->
+</body>
+</html>

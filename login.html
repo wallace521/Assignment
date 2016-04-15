@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+  <meta charset="UTF-8">	
+	<title>Drug Abuse</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+		
+		$("#loginbtn").click(function() {					
+		    var URLs="login.php";        
+		    var userid=$("#user").val();
+			var pwdid=$("#pw").val();		
+            var myData = "userid="+ userid + "&password=" + pwdid; 
+            $.ajax({
+                url: URLs,
+                data: myData,
+                type:"PUT",
+                dataType:'text',
+                success: function(msg){					
+					if (msg =="success"){
+						localStorage.setItem("user",userid);
+						window.location="index.html";	
+					}
+					else 			
+					alert(msg);					
+                },
+                 error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                 }
+            });
+});
+
+});
+       
+        </script>
+
+</head> 
+
+<body> 
+<div data-role="page" id="home" data-theme="c">
+	<div data-role="content">
+		<h1>Login</h1>
+		<a href="#" class="ui-btn" data-rel="back">Go Back</a>
+		<div data-role="fieldcontain">
+			<label for="user">Username</label>
+			<input type="text" id="user" name="user">
+			<label for="pw">Password</label>
+			<input type="password" id="pw" name="pw">
+		</div>
+		<input type="button" id="loginbtn" value="Login">
+		<div id="registerbtn"><a href="register.html" rel="external" data-role="button">Register</a></div>
+	</div>
+</div>
+	
+	
+	
+</div><!-- /page -->
+</body>
+</html>

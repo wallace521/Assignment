@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	 <meta charset="UTF-8">
+	<title>Drug Abuse</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	
+<script>
+$(document).ready(function() {
+		var session = localStorage.getItem("user");
+		if (!session.trim()){
+			alert("Please login first!");
+			window.location="login.html";
+		}
+		
+		$.getJSON('favlistready.php', function(data) {
+            $.each(data, function(key, val) {
+            	// <div id="registerbtn"><a href="register.html" rel="external" data-role="button">Register</a></div>
+            	// $('#topiclist').append('<li><a href="thread.html" data-transition="slidedown">' + ' Topic:' + val.topic + ' Creator:' + val.creator + '</li>');
+                var artname = val.artname;
+				var username = val.username;
+				var favlistid = val.favlistid;
+				if (username.toLowerCase() === session.toLowerCase())
+				{
+					$('#favlist').append('<li><a href="' + artname + '.html" rel="external">' + ' Article : ' + artname + ' </a><div><a href="deletefav.html?favlistid='+ favlistid +'" rel="external" data-role="button">Remove</a></div></li>');
+				}
+            	
+            });
+				$('#favlist').listview("refresh");
+		
+        });
+		/* 
+		localStorage.setItem("threadid", val.threadid);
+        localStorage.setItem("threadtopic", val.topic);
+        localStorage.setItem("threadcreator", val.creator);
+        localStorage.setItem("threadcontent", val.content);
+        */      
+
+					
+});
+</script>
+</head> 
+<body> 
+<div id="choisir_ville" data-role="page" data-add-back-btn="true">
+	
+	<div data-role="header"> 
+		<h1>Drugs understanding</h1>
+		<a href="index.html" class="ui-btn" rel="external">Home</a>
+	</div> 
+
+	<div data-role="content">
+	
+		<div class="choice_list"> 
+			<h1>My Favourite List</h1>
+				<ul id="favlist" data-role="listview" data-inset="true"></ul>
+		</div>
+	</div>
+
+</div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	 <meta charset="UTF-8">
+	<title>Drug Abuse</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	
+<script>
+$(document).ready(function() {
+		var session = localStorage.getItem("user");		
+		var threadid = <?php echo $_GET['threadid'] ?>;
+			
+		$("#addcommentbtn").click(function() {
+			if (session.trim() == false){
+				alert("Login First!");
+				window.location="login.html";
+			}
+			
+		    var URLs="addcomment.php";        
+			var comment=$("#comment").val();		
+            var myData = "threadid="+ threadid + "&comment=" + comment + "&session=" + session; 
+            $.ajax({
+                url: URLs,
+                data: myData,
+                type:"POST",
+                dataType:'text',
+                
+                success: function(msg){									
+						window.location="thread.html?threadid=" + threadid;					
+                },
+                 error:function(xhr, ajaxOptions, thrownError){
+                    
+                 }
+            });
+});
+});	
+
+</script>
+</head> 
+<body> 
+<?php
+$id = $_GET['threadid']; 
+$hostname = "127.0.0.1";
+$username = "root";
+$password ="12345678";
+$connection = mysql_connect($hostname, $username, $password) or die("Could not open connection to database");
+mysql_select_db("membership", $connection) or die("Could not select database");
+$sql="SELECT creator,topic,content FROM thread WHERE threadid = $id";
+if ($result=mysql_query($sql)){
+while ($row=mysql_fetch_row($result)){
+?>
+
+<div id="choisir_ville" data-role="page" data-add-back-btn="true">
+	<div data-role="header"> 
+		<h1>Drugs understanding</h1>
+		<a href="index.html" class="ui-btn" rel="external">Home</a>
+	</div> 
+
+	<div data-role="content">
+
+			<h1>
+				Topic: <?php echo ($row[1]);	?>
+			</h1><p align="right">
+				Creator: <?php echo ($row[0]);	?>
+				<h3>
+				Content:
+				</h3>
+					<textarea readonly>
+<?php echo ($row[2]);	?>
+<?php } }?>
+					</textarea>
+				Comments:
+<?php 
+$sql="SELECT commentid,creator,comment FROM comment WHERE threadid = $id";
+if ($result=mysql_query($sql)){
+while ($row=mysql_fetch_assoc($result)){
+?>
+				<h3>
+<?php 
+$a = $row["creator"];
+echo $a;
+?>: 
+<textarea readonly>
+<?php 
+echo ($row["comment"]);
+?>
+</textarea>
+
+				</h3>
+<script>
+	var loggedname = "<?php echo $a; ?>";
+	var b =localStorage.getItem("user");
+	if (loggedname == b) {
+		$("#del").css("display","inline");
+		document.write("<div id=\"del\"><a href=\"deletecm.html?commentid=<?php echo $row['commentid'] ?>\" type=\"text\" value=\"delete\" rel=\"external\">delete comment</a></div>");
+	}
+	else {
+		$("#del").css("display","none");
+	}
+</script>
+
+<?php } }?>
+				<textarea placeholder="Write your comment here..." id="comment" name="comment"></textarea>
+				<input type="button" id="addcommentbtn" value="Add comment">
+
+	</div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

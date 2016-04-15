@@ -1,0 +1,30 @@
+<html>
+<head>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+</head>
+<body>
+
+        <!-- this UL will be populated with the data from the php array -->
+        <ul></ul>
+
+        <script type='text/javascript'>
+        $(document).ready(function(){
+                /* call the php that has the php array which is json_encoded */
+                $.getJSON('forumready.php', function(data) {
+                        /* data will hold the php array as a javascript object */
+						alert(data);
+                        $.each(data, function(key, val) {
+						// asd</a></li>
+                               $('ul').append('<li><a href="thread.html" data-transition="slidedown">' + val.topic + ' Creator:' + val.creator + '</li>');
+                        });
+						
+						
+                });
+
+        });
+        </script>
+
+</body>
+
+test
+</html>

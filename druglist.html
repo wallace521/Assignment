@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	 <meta charset="UTF-8">
+	<title>Restaurant Picker</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	<script>
+$(document).ready(function() {
+		var session = localStorage.getItem("user");
+		
+});
+
+</script>
+</head> 
+<body> 
+<div id="choisir_ville" data-role="page" data-add-back-btn="true">
+	
+	<div data-role="header"> 
+		<h1>Drugs understanding</h1>
+		<a href="index.html" class="ui-btn" rel="external">Home</a>
+	</div> 
+
+	<div data-role="content">
+	
+		<div class="choice_list"> 
+			<h1> Different DRUGS</h1>
+
+			<ul data-role="listview" data-inset="true" data-filter="true">
+				<li><a href="Acetaminophen.html"  rel="external"> Acetaminophen</a><div><script> var session = localStorage.getItem("user");
+				document.write("<a href=\"addfav.php?selection=Acetaminophen&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+				<li><a href="Cyclobenzaprine.html"  rel="external"> Cyclobenzaprine</a><div><script>
+				document.write("<a href=\"addfav.php?selection=Cyclobenzaprine&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+				<li><a href="Hydrochlorothiazide.html"  rel="external"> Hydrochlorothiazide</a><div><script>
+				document.write("<a href=\"addfav.php?selection=Hydrochlorothiazide&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+				<li><a href="Loratadine.html"  rel="external"> Loratadine</a><div><script>
+				document.write("<a href=\"addfav.php?selection=Loratadine&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+				<li><a href="Lyrica.html"  rel="external"> Lyrica</a><div><script>
+				document.write("<a href=\"addfav.php?selection=Lyrica&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+				<li><a href="Metformin.html"  rel="external"> Metformin</a><div><script>
+				document.write("<a href=\"addfav.php?selection=Metformin&username=" + session + "\" type=\"button\" rel=\"external\">Add to favourite list</a>"); </script></div></li>
+			</ul>
+		</div>
+	</div>
+
+</div><!-- /page -->
+</body>
+</html>
+
+<!--  
+var selection = "";	
+		$("#addfavbtn").click(function() {					
+		    var URLs="addfav.php";        		
+            var myData = "session="+ session + "&selection=" + selection; 
+            $.getJSON('checklist.php?username=' + session +'&selection=' +selection, function(data) {
+                $.each(data, function(key, val) {
+                	// <div id="registerbtn"><a href="register.html" rel="external" data-role="button">Register</a></div>
+                	// $('#topiclist').append('<li><a href="thread.html" data-transition="slidedown">' + ' Topic:' + val.topic + ' Creator:' + val.creator + '</li>');
+                    var check = val.artname;
+                    alert(check);
+    			if (selection==check){
+    				alert("selected article is already added!");
+    			}		
+    			else
+            $.ajax({
+                url: URLs,
+                data: myData,
+                type:"POST",
+                dataType:'text',
+                success: function(msg){					
+							
+					alert(msg);					
+                },
+                 error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                 }
+            });
+            
+-->
